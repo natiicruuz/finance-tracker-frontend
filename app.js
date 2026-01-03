@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'finance-tracker-backend-production-8318.up.railway.app/api';
 
 async function saveTransaction() {
   // Obtener token de autenticación
