@@ -1,0 +1,87 @@
+/* frontend/styles.css */
+
+/* Custom scrollbar hide for cleaner mobile look */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Asegurar altura mínima del body */
+body {
+  min-height: max(884px, 100dvh);
+}
+
+/* Animación suave para botones */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Mejorar apariencia de inputs en iOS */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* Animación para el toggle de tipo de transacción */
+input[name="transaction-type"]:checked + span {
+  font-weight: 600;
+}
+
+/* Feedback visual en el botón de guardar */
+.btn-save:active {
+  transform: scale(0.98);
+}
+
+/* Loading state (para futuro) */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Success message (para futuro) */
+.success-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10b981;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  z-index: 9999;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Error message */
+.error-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ef4444;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  z-index: 9999;
+  animation: slideDown 0.3s ease-out;
+}

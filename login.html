@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>FinanzApp - Inicio de Sesión</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+        
+        /* Animación para mensajes */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message {
+            animation: slideDown 0.3s ease-out;
+        }
+    </style>
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark text-[#111418] dark:text-white transition-colors duration-200">
+    
+    <div class="relative flex min-h-screen w-full flex-col justify-between overflow-x-hidden p-6 md:justify-center md:items-center">
+        
+        <!-- Header / Logo Section -->
+        <div class="flex flex-col items-center pt-12 md:pt-0 pb-8">
+            <div class="w-20 h-20 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-primary/10">
+                <span class="material-symbols-outlined text-primary text-[40px]">account_balance_wallet</span>
+            </div>
+            <h1 id="formTitle" class="text-[#111418] dark:text-white tracking-tight text-[28px] font-bold leading-tight text-center">
+                Bienvenido de nuevo
+            </h1>
+            <p id="formSubtitle" class="text-[#637588] dark:text-[#9dabb9] text-base font-normal leading-normal text-center mt-2">
+                Gestiona tus finanzas de forma inteligente
+            </p>
+        </div>
+        
+        <!-- Form Section -->
+        <div class="flex w-full max-w-[400px] flex-col gap-5 md:gap-6 self-center">
+            
+            <!-- Mensaje de feedback -->
+            <div id="messageBox" class="hidden"></div>
+            
+            <!-- LOGIN FORM -->
+            <div id="loginForm" class="flex flex-col gap-5">
+                <!-- Email Input -->
+                <label class="flex flex-col w-full">
+                    <p class="text-[#111418] dark:text-white text-base font-medium leading-normal pb-2">Correo electrónico</p>
+                    <input id="loginEmail" class="form-input flex w-full min-w-0 resize-none overflow-hidden rounded-xl text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dce0e5] dark:border-[#3b4754] bg-white dark:bg-[#1c2127] focus:border-primary h-14 placeholder:text-[#637588] dark:placeholder:text-[#9dabb9] p-[15px] text-base font-normal leading-normal transition-all" 
+                           placeholder="ejemplo@correo.com" 
+                           type="email"
+                           autocomplete="email"/>
+                </label>
+                
+                <!-- Password Input -->
+                <label class="flex flex-col w-full">
+                    <div class="flex justify-between items-baseline pb-2">
+                        <p class="text-[#111418] dark:text-white text-base font-medium leading-normal">Contraseña</p>
+                    </div>
+                    <div class="flex w-full items-stretch rounded-xl overflow-hidden shadow-sm">
+                        <input id="loginPassword" class="form-input flex w-full min-w-0 resize-none overflow-hidden rounded-l-xl text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border border-[#dce0e5] dark:border-[#3b4754] bg-white dark:bg-[#1c2127] focus:border-primary h-14 placeholder:text-[#637588] dark:placeholder:text-[#9dabb9] p-[15px] border-r-0 text-base font-normal leading-normal z-10 focus:z-20 transition-colors" 
+                               placeholder="••••••••" 
+                               type="password"
+                               autocomplete="current-password"/>
+                        <div onclick="togglePasswordVisibility('loginPassword')" class="text-[#637588] dark:text-[#9dabb9] flex border border-[#dce0e5] dark:border-[#3b4754] bg-white dark:bg-[#1c2127] items-center justify-center pr-[15px] border-l-0 cursor-pointer hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined" style="font-size: 24px;">visibility</span>
+                        </div>
+                    </div>
+                </label>
+                
+                <!-- Login Button -->
+                <button onclick="handleLogin()" class="flex w-full items-center justify-center rounded-xl bg-primary h-14 px-6 text-white text-base font-bold leading-normal tracking-wide shadow-md shadow-primary/20 hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 mt-2">
+                    Iniciar Sesión
+                </button>
+            </div>
+            
+            <!-- REGISTER FORM (hidden by default) -->
+            <div id="registerForm" class="flex flex-col gap-5 hidden">
+                <!-- Name Input -->
+                <label class="flex flex-col w-full">
+                    <p class="text-[#111418] dark:text-white text-base font-medium leading-normal pb-2">Nombre completo</p>
+                    <input id="registerName" class="form-input flex w-full min-w-0 resize-none overflow-hidden rounded-xl text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dce0e5] dark:border-[#3b4754] bg-white dark:bg-[#1c2127] focus:border-primary h-14 placeholder:text-[#637588] dark:placeholder:text-[#9dabb9] p-[15px] text-base font-normal leading-normal transition-all" 
+                           placeholder="Ej: María García" 
+                           type="text"
+                           autocomplete="name"/>
+                </label>
+                
+                <!-- Email Input -->
+                <label class="flex flex-col w-full">
+                    <p class="text-[#111418] dark:text-white text-base font-medium leading-normal pb-2">Correo electrónico</p>
+                    <input id="registerEmail" class="form-input flex w-full min-w-0 resize-none overflow-hidden rounded-xl text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dce0e5] dark:border-[#3b4754] bg-white dark:bg-[#1c2127] focus:border-primary h-14 placeholder:text-[#637588] dark:placeholder:text-[#9dabb9] p-[15px] text-base font-normal leading-normal transition-all" 
+                           placeholder="ejemplo@correo.com" 
+                           type="email"
+                           autocomplete="email"/>
+                </label>
+                
+                <!-- Password Input -->
+                <label class="flex flex-col w-full">
+                    <p class="text-[#111418] dark:text-white text-base font-medium leading-normal pb-2">Contraseña</p>
+                    <div class="flex w-full items-stretch rounded-xl overflow-hidden shadow-sm">
+                        <input id="registerPassword" class="form-input flex w-full min-w-0 resize-none overflow-hidden rounded-l-xl text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border border-[#dce0e5] dark:border-[#3b4754] bg-white dark:bg-[#1c2127] focus:border-primary h-14 placeholder:text-[#637588] dark:placeholder:text-[#9dabb9] p-[15px] border-r-0 text-base font-normal leading-normal z-10 focus:z-20 transition-colors" 
+                               placeholder="Mínimo 6 caracteres" 
+                               type="password"
+                               autocomplete="new-password"/>
+                        <div onclick="togglePasswordVisibility('registerPassword')" class="text-[#637588] dark:text-[#9dabb9] flex border border-[#dce0e5] dark:border-[#3b4754] bg-white dark:bg-[#1c2127] items-center justify-center pr-[15px] border-l-0 cursor-pointer hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined" style="font-size: 24px;">visibility</span>
+                        </div>
+                    </div>
+                </label>
+                
+                <!-- Google Sheet ID Input (para crear su sheet) -->
+                <label class="flex flex-col w-full">
+                    <p class="text-[#111418] dark:text-white text-base font-medium leading-normal pb-2">
+                        ID de Google Sheet 
+                        <a href="#" onclick="showSheetIdHelp(); return false;" class="text-primary text-sm hover:underline ml-1">
+                            (¿Cómo obtenerlo?)
+                        </a>
+                    </p>
+                    <input id="registerSheetId" class="form-input flex w-full min-w-0 resize-none overflow-hidden rounded-xl text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dce0e5] dark:border-[#3b4754] bg-white dark:bg-[#1c2127] focus:border-primary h-14 placeholder:text-[#637588] dark:placeholder:text-[#9dabb9] p-[15px] text-base font-normal leading-normal transition-all font-mono text-sm" 
+                           placeholder="1AbC_dEfGhIjKlMnOpQrStUvWxYz..." 
+                           type="text"/>
+                </label>
+                
+                <!-- Register Button -->
+                <button onclick="handleRegister()" class="flex w-full items-center justify-center rounded-xl bg-primary h-14 px-6 text-white text-base font-bold leading-normal tracking-wide shadow-md shadow-primary/20 hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 mt-2">
+                    Crear Cuenta
+                </button>
+            </div>
+            
+            <!-- Divider -->
+            <div class="relative flex py-2 items-center">
+                <div class="flex-grow border-t border-[#dce0e5] dark:border-[#3b4754]"></div>
+            </div>
+        </div>
+        
+        <!-- Footer Actions -->
+        <div class="flex flex-col items-center justify-center gap-4 pb-4 pt-6 md:pt-4">
+            <p id="toggleFormText" class="text-[#637588] dark:text-[#9dabb9] text-sm font-normal leading-normal text-center">
+                ¿No tienes una cuenta? 
+                <a onclick="toggleForm()" class="text-primary font-semibold hover:underline decoration-primary/50 underline-offset-4 cursor-pointer">
+                    Regístrate
+                </a>
+            </p>
+            
+            <!-- Decorative line -->
+            <div class="w-full h-1 bg-gradient-to-r from-transparent via-[#dce0e5] dark:via-[#3b4754] to-transparent rounded-full max-w-[120px] mt-4 opacity-50"></div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="/auth.js"></script>
+</body>
+</html>
