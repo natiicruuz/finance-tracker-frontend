@@ -1,4 +1,4 @@
-const API_URL = 'finance-tracker-backend-production-8318.up.railway.app/api';
+const API_URL = 'https://finance-tracker-backend-production-8318.up.railway.app/api';
 
 // ========================================
 // TOGGLE BETWEEN LOGIN AND REGISTER
